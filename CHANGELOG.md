@@ -4,6 +4,11 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.0.6](https://github.com/astuteo-llc/astuteo-sh-scripts/compare/v0.0.5...v0.0.6) (2025-08-11)
+
+
+---
+
 ## [0.0.5](https://github.com/astuteo-llc/astuteo-sh-scripts/compare/v0.0.4...v0.0.5) (2025-08-11)
 
 ### Bug Fixes
