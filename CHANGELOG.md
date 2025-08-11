@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## [0.0.5](https://github.com/astuteo-llc/astuteo-sh-scripts/compare/v0.0.4...v0.0.5) (2025-08-11)
+
+### Bug Fixes
+
+* Update rounded to rounded-default ([b4c9fd](https://github.com/astuteo-llc/astuteo-sh-scripts/commit/b4c9fdf06360afef6a23703f4cc5b6d939edb634))
+
+
+---
+
 ## [0.0.4](https://github.com/astuteo-llc/astuteo-sh-scripts/compare/v0.0.3...v0.0.4) (2025-08-11)
 
 ### Bug Fixes
