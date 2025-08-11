@@ -55,7 +55,7 @@ do
                     do
                         echo "Updating $file"
                         echo "Updating $file" >> "$log_file"
-                        # Use sed to replace old_class with new_class
+                        # Use sed to replace old_class with new_class (supports regex patterns)
                         sed -i '' "s/$old_class/$new_class/g" "$file"
                         echo "  - Replaced $old_class with $new_class in $file" >> "$log_file"
                     done
@@ -66,7 +66,7 @@ do
                 do
                     echo "Updating $file"
                     echo "Updating $file" >> "$log_file"
-                    # Use sed to replace old_class with new_class
+                    # Use sed to replace old_class with new_class (supports regex patterns)
                     sed -i '' "s/$old_class/$new_class/g" "$file"
                     echo "  - Replaced $old_class with $new_class in $file" >> "$log_file"
                 done

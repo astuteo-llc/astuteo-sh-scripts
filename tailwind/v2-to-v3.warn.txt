@@ -2,17 +2,17 @@
 # Format: <pattern> <message>
 
 # Opacity modifiers removed for colors/utilities in v3
-bg-opacity- Use color/opacity notation in v3 (e.g., bg-black/50 instead of bg-black bg-opacity-50)
-text-opacity- Use color/opacity notation in v3 (e.g., text-black/50 instead of text-black text-opacity-50)
-border-opacity- Use color/opacity notation in v3 (e.g., border-black/50)
-divide-opacity- Use color/opacity notation in v3 (e.g., divide-black/50)
-placeholder-opacity- Use color/opacity notation in v3 (e.g., placeholder-black/50)
-ring-opacity- Use color/opacity notation in v3 (e.g., ring-black/50)
-ring-offset-opacity- Use color/opacity notation in v3 (e.g., ring-offset-black/50)
+bg-opacity-.* Use color/opacity notation in v3 (e.g., bg-black/50 instead of bg-black bg-opacity-50)
+text-opacity-.* Use color/opacity notation in v3 (e.g., text-black/50 instead of text-black text-opacity-50)
+border-opacity-.* Use color/opacity notation in v3 (e.g., border-black/50)
+divide-opacity-.* Use color/opacity notation in v3 (e.g., divide-black/50)
+placeholder-opacity-.* Use color/opacity notation in v3 (e.g., placeholder-black/50)
+ring-opacity-.* Use color/opacity notation in v3 (e.g., ring-black/50)
+ring-offset-opacity-.* Use color/opacity notation in v3 (e.g., ring-offset-black/50)
 
 # Aspect ratio utilities changed
-aspect-w- Replace with aspect-[<ratio>] or use aspect-square/aspect-video (v3 built-in)
-aspect-h- Replace with aspect-[<ratio>] or use aspect-square/aspect-video (v3 built-in)
+aspect-w-.* Replace with aspect-[<ratio>] or use aspect-square/aspect-video (v3 built-in)
+aspect-h-.* Replace with aspect-[<ratio>] or use aspect-square/aspect-video (v3 built-in)
 
 # Config changes
 (^|[[:space:]])mode:[[:space:]]*['\"]jit['\"]\b Remove mode: 'jit' (Tailwind v3 always JIT)
@@ -26,4 +26,4 @@ coolGray\b color superseded by gray/slate; update usages
 blueGray\b color renamed to slate in v3; update usages
 
 # Line clamp plugin difference (class name unchanged but plugin often needed)
-line-clamp- Ensure @tailwindcss/line-clamp plugin is installed/enabled in v3
+line-clamp-.* Ensure @tailwindcss/line-clamp plugin is installed/enabled in v3
