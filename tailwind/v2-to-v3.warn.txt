@@ -1,29 +1,36 @@
-# Tailwind v2 -> v3 manual review warnings
-# Format: <pattern> <message>
+# Tailwind v2 → v3 warning patterns (manual review needed)
+# Each rule: <regex><space><message>
 
-# Opacity modifiers removed for colors/utilities in v3
-bg-opacity-.* Use color/opacity notation in v3 (e.g., bg-black/50 instead of bg-black bg-opacity-50)
-text-opacity-.* Use color/opacity notation in v3 (e.g., text-black/50 instead of text-black text-opacity-50)
-border-opacity-.* Use color/opacity notation in v3 (e.g., border-black/50)
-divide-opacity-.* Use color/opacity notation in v3 (e.g., divide-black/50)
-placeholder-opacity-.* Use color/opacity notation in v3 (e.g., placeholder-black/50)
-ring-opacity-.* Use color/opacity notation in v3 (e.g., ring-black/50)
-ring-offset-opacity-.* Use color/opacity notation in v3 (e.g., ring-offset-black/50)
+# --- Standalone opacity utilities (v3 prefers color/opacity slash syntax) ---
+# If you still see these without an adjacent color class, decide case-by-case.
+(^|[[:space:]])text-opacity-[0-9]{1,3}\b Use color/opacity in v3 (e.g., text-blue-500/50)
+(^|[[:space:]])bg-opacity-[0-9]{1,3}\b Use color/opacity in v3 (e.g., bg-blue-500/50)
+(^|[[:space:]])border-opacity-[0-9]{1,3}\b Use color/opacity in v3 (e.g., border-blue-500/50)
+(^|[[:space:]])placeholder-opacity-[0-9]{1,3}\b Use color/opacity in v3 (e.g., placeholder-blue-500/50)
+(^|[[:space:]])ring-opacity-[0-9]{1,3}\b Use color/opacity in v3 (e.g., ring-blue-500/50)
+(^|[[:space:]])ring-offset-opacity-[0-9]{1,3}\b Use color/opacity in v3 (e.g., ring-offset-blue-500/50)
+(^|[[:space:]])divide-opacity-[0-9]{1,3}\b Use color/opacity in v3 (e.g., divide-blue-500/50)
+(^|[[:space:]])from-opacity-[0-9]{1,3}\b Use color/opacity in v3 (e.g., from-blue-500/50)
+(^|[[:space:]])via-opacity-[0-9]{1,3}\b Use color/opacity in v3 (e.g., via-blue-500/50)
+(^|[[:space:]])to-opacity-[0-9]{1,3}\b Use color/opacity in v3 (e.g., to-blue-500/50)
 
-# Aspect ratio utilities changed
-aspect-w-.* Replace with aspect-[<ratio>] or use aspect-square/aspect-video (v3 built-in)
-aspect-h-.* Replace with aspect-[<ratio>] or use aspect-square/aspect-video (v3 built-in)
+# --- Aspect ratio: old plugin classes (v3 has core aspect-*) ---
+(^|[[:space:]])aspect-w-[0-9]+\b Replace with aspect-[W/H] or aspect-square/aspect-video
+(^|[[:space:]])aspect-h-[0-9]+\b Replace with aspect-[W/H] or aspect-square/aspect-video
 
-# Config changes
-(^|[[:space:]])mode:[[:space:]]*['\"]jit['\"]\b Remove mode: 'jit' (Tailwind v3 always JIT)
-(^|[[:space:]])purge:[[:space:]] Replace purge with content in tailwind.config.*
+# --- Config changes: JIT/purge/variants moved in v3 ---
+(^|[[:space:]])mode:[[:space:]]*['"]jit['"]\b Remove mode: 'jit' (v3 is always JIT)
+(^|[[:space:]])purge:[[:space:]] Replace purge with content: [] in tailwind.config.*
+(^|[[:space:]])variants:[[:space:]] Consider removing variants: (v3 uses built-in variants; extend via plugins if needed)
+(^|[[:space:]])safelist:[[:space:]] Move safelist to content.safelist in tailwind.config.*
 
-# Color palette renames/removals
-lightBlue\b color renamed to sky in v3; update usages (e.g., from-lightBlue-500 -> from-sky-500)
-warmGray\b color renamed to stone in v3; update usages
-trueGray\b color removed; consider gray, neutral, or zinc/stone; update usages
-coolGray\b color superseded by gray/slate; update usages
-blueGray\b color renamed to slate in v3; update usages
+# --- Plugin names that changed or are unnecessary in v3 ---
+(^|[[:space:]])tailwindcss-typography\b Use @tailwindcss/typography (scoped package name)
+(^|[[:space:]])@tailwindcss/aspect-ratio\b Remove plugin (v3 has core aspect-* utilities)
 
-# Line clamp plugin difference (class name unchanged but plugin often needed)
-line-clamp-.* Ensure @tailwindcss/line-clamp plugin is installed/enabled in v3
+# --- Legacy palette names that were renamed in v3 ---
+(^|[[:space:]])lightBlue\b Color renamed to sky (e.g., from-lightBlue-500 → from-sky-500)
+(^|[[:space:]])warmGray\b Color renamed to stone
+(^|[[:space:]])trueGray\b Color renamed/removed; consider gray/neutral/zinc/stone
+(^|[[:space:]])coolGray\b Prefer gray or slate
+(^|[[:space:]])blueGray\b Color renamed to slate

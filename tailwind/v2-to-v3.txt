@@ -1,4 +1,29 @@
-flex-grow-.* grow-
-flex-grow grow
-overflow-clip text-clip
-overflow-ellipsis text-ellipsis
+(^|[^A-Za-z0-9-])flex-grow-0([^A-Za-z0-9-]|$) \1grow-0\2
+(^|[^A-Za-z0-9-])flex-grow([^A-Za-z0-9-]|$) \1grow\2
+(^|[^A-Za-z0-9-])flex-shrink-0([^A-Za-z0-9-]|$) \1shrink-0\2
+(^|[^A-Za-z0-9-])flex-shrink([^A-Za-z0-9-]|$) \1shrink\2
+(^|[^A-Za-z0-9-])overflow-ellipsis([^A-Za-z0-9-]|$) \1text-ellipsis\2
+(^|[^A-Za-z0-9-])overflow-clip([^A-Za-z0-9-]|$) \1text-clip\2
+
+(text-[a-z0-9-]+)-([0-9]{1,3})[[:space:]]+text-opacity-([0-9]{1,3}) \1-\2/\3
+(bg-[a-z0-9-]+)-([0-9]{1,3})[[:space:]]+bg-opacity-([0-9]{1,3}) \1-\2/\3
+(border-[a-z0-9-]+)-([0-9]{1,3})[[:space:]]+border-opacity-([0-9]{1,3}) \1-\2/\3
+(placeholder-[a-z0-9-]+)-([0-9]{1,3})[[:space:]]+placeholder-opacity-([0-9]{1,3}) \1-\2/\3
+(ring-[a-z0-9-]+)-([0-9]{1,3})[[:space:]]+ring-opacity-([0-9]{1,3}) \1-\2/\3
+(divide-[a-z0-9-]+)-([0-9]{1,3})[[:space:]]+divide-opacity-([0-9]{1,3}) \1-\2/\3
+(from-[a-z0-9-]+)-([0-9]{1,3})[[:space:]]+from-opacity-([0-9]{1,3}) \1-\2/\3
+(via-[a-z0-9-]+)-([0-9]{1,3})[[:space:]]+via-opacity-([0-9]{1,3}) \1-\2/\3
+(to-[a-z0-9-]+)-([0-9]{1,3})[[:space:]]+to-opacity-([0-9]{1,3}) \1-\2/\3
+(ring-offset-[a-z0-9-]+)-([0-9]{1,3})[[:space:]]+ring-offset-opacity-([0-9]{1,3}) \1-\2/\3
+
+# Reverse-order variants (opacity class first)
+text-opacity-([0-9]{1,3})[[:space:]]+(text-[a-z0-9-]+)-([0-9]{1,3}) \2-\3/\1
+bg-opacity-([0-9]{1,3})[[:space:]]+(bg-[a-z0-9-]+)-([0-9]{1,3}) \2-\3/\1
+border-opacity-([0-9]{1,3})[[:space:]]+(border-[a-z0-9-]+)-([0-9]{1,3}) \2-\3/\1
+placeholder-opacity-([0-9]{1,3})[[:space:]]+(placeholder-[a-z0-9-]+)-([0-9]{1,3}) \2-\3/\1
+ring-opacity-([0-9]{1,3})[[:space:]]+(ring-[a-z0-9-]+)-([0-9]{1,3}) \2-\3/\1
+divide-opacity-([0-9]{1,3})[[:space:]]+(divide-[a-z0-9-]+)-([0-9]{1,3}) \2-\3/\1
+from-opacity-([0-9]{1,3})[[:space:]]+(from-[a-z0-9-]+)-([0-9]{1,3}) \2-\3/\1
+via-opacity-([0-9]{1,3})[[:space:]]+(via-[a-z0-9-]+)-([0-9]{1,3}) \2-\3/\1
+to-opacity-([0-9]{1,3})[[:space:]]+(to-[a-z0-9-]+)-([0-9]{1,3}) \2-\3/\1
+ring-offset-opacity-([0-9]{1,3})[[:space:]]+(ring-offset-[a-z0-9-]+)-([0-9]{1,3}) \2-\3/\1

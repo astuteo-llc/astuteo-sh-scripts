@@ -1,13 +1,13 @@
-font-thin font-extralight
-font-hairline font-thin
-whitespace-no-wrap whitespace-nowrap
-flex-no-wrap flex-nowrap
-col-gap-([0-9]+) gap-x-\1
-row-gap-([0-9]+) gap-y-\1
-clearfix flow-root
-focus:shadow-outline focus:ring
-shadow-outline ring
-shadow-xs ring-1 ring-black ring-opacity-5
-rounded-default rounded
+(^|[^A-Za-z0-9-])font-thin([^A-Za-z0-9-]|$) \1font-extralight\2
+(^|[^A-Za-z0-9-])font-hairline([^A-Za-z0-9-]|$) \1font-thin\2
+(^|[^A-Za-z0-9-])whitespace-no-wrap([^A-Za-z0-9-]|$) \1whitespace-nowrap\2
+(^|[^A-Za-z0-9-])flex-no-wrap([^A-Za-z0-9-]|$) \1flex-nowrap\2
+(^|[^A-Za-z0-9-])(col-gap-([0-9]+))([^A-Za-z0-9-]|$) \1gap-x-\3\4
+(^|[^A-Za-z0-9-])(row-gap-([0-9]+))([^A-Za-z0-9-]|$) \1gap-y-\3\4
+(^|[^A-Za-z0-9-])clearfix([^A-Za-z0-9-]|$) \1flow-root\2
+(^|[^A-Za-z0-9-])focus:shadow-outline([^A-Za-z0-9-]|$) \1focus:ring\2
+(^|[^A-Za-z0-9-])shadow-outline([^A-Za-z0-9-]|$) \1ring\2
+(^|[^A-Za-z0-9-])shadow-xs([^A-Za-z0-9-]|$) \1ring-1 ring-black ring-opacity-5\2
+(^|[^A-Za-z0-9-])rounded-default([^A-Za-z0-9-]|$) \1rounded\2
 scrolling-touch 
-scrolling-auto
+scrolling-auto 
