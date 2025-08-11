@@ -1,0 +1,17 @@
+{
+    "name": "astuteo/astuteo-sh-scripts",
+    "type": "metapackage",
+    "autoload": {
+        "psr-4": {
+            "Astuteo\\AstuteoShScripts\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Dustin Walker",
+            "email": "robot@astuteo.com"
+        }
+    ],
+    "minimum-stability": "beta",
+    "require": {}
+}

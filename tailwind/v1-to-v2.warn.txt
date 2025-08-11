@@ -1,0 +1,13 @@
+# Tailwind v1 -> v2 manual review warnings
+# Format: <pattern> <message>
+
+# Shadows/Outlines to Rings migration nuances
+(^|[[:space:]])shadow-outline(\b|:) shadow-outline was removed; prefer focus:ring or ring utilities in v2; ensure visual parity
+(^|[[:space:]])focus:[^[:space:]]*shadow- Using focus:shadow-* may need focus:ring equivalents; verify interaction states
+
+# Gap shorthands: col-gap/row-gap to gap-x/gap-y handled by upgrade; warn if unusual patterns remain
+(^|[[:space:]])(grid-)?col-gap- Check for custom patterns around col-gap- -> gap-x-
+(^|[[:space:]])(grid-)?row-gap- Check for custom patterns around row-gap- -> gap-y-
+
+# Whitespace rename handled; still warn for exotic variants
+whitespace-no-wrap Ensure replaced with whitespace-nowrap and behavior remains correct

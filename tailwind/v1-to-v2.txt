@@ -5,3 +5,4 @@ whitespace-no-wrap whitespace-nowrap
 flex-no-wrap flex-nowrap
 col-gap- gap-x-
 row-gap- gap-y-
+shadow-outline ring

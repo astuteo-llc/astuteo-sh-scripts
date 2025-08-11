@@ -53,6 +53,32 @@ For v2 to v3 upgrade run:
 
 For best results, it is recommended to run prettier or similar to order the classes in a more predictable way.
 
+## Warning Scanner (manual review)
+Some changes between Tailwind major versions are not 1:1 and may require human review. Use the warn-only scanner to surface potential problem areas without modifying files:
+
+Examples:
+```
+# v2 -> v3 review
+./vendor/astuteo/astuteo-toolkit/tools/tailwind/warn.sh v2-to-v3
+
+# v1 -> v2 review
+./vendor/astuteo/astuteo-toolkit/tools/tailwind/warn.sh v1-to-v2
+
+# custom warn rules
+./vendor/astuteo/astuteo-toolkit/tools/tailwind/warn.sh /path/to/custom.warn.txt
+```
+
+Rules live alongside the scripts as:
+- v1-to-v2.warn.txt
+- v2-to-v3.warn.txt
+
+Each rule line is: `<pattern> <message>`. The first token is a grep-compatible regex pattern; the rest of the line is a helpful message printed when a match is found. Lines starting with `#` are ignored.
+
+The scanner searches:
+- ./src for CSS-like files (css, sass, scss, pcss)
+- ./templates for all files
+- Tailwind config files (tailwind.config.{js,cjs,mjs,ts}) if present in your project
+
 ## Notes
 
 - Always ensure your files are under version control or otherwise backed up before running this script, as it modifies your files in place without creating a backup.
