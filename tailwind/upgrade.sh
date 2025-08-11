@@ -8,6 +8,9 @@ fi
 
 class_file=$1
 
+# Get the project root directory (where the script is being run from)
+project_root="$(pwd)"
+
 # Create log directory if it doesn't exist
 log_dir="./helpers/log"
 mkdir -p "$log_dir"
@@ -16,6 +19,7 @@ log_file="$log_dir/upgrade.log"
 # Initialize log file with timestamp
 echo "=== Tailwind Upgrade Log - $(date) ===" > "$log_file"
 echo "Class mapping file: $class_file" >> "$log_file"
+echo "Project root: $project_root" >> "$log_file"
 echo "" >> "$log_file"
 
 # List of directories to scan

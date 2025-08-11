@@ -22,16 +22,6 @@ arg="$1"
 base_dir="$(cd "$(dirname "$0")" && pwd)"
 project_root="$(cd "$base_dir/.." && pwd)"
 
-# Create log directory if it doesn't exist
-log_dir="./helpers/log"
-mkdir -p "$log_dir"
-log_file="$log_dir/warnings.log"
-
-# Initialize log file with timestamp
-echo "=== Tailwind Warnings Log - $(date) ===" > "$log_file"
-echo "Rules file: $arg" >> "$log_file"
-echo "" >> "$log_file"
-
 case "$arg" in
   v1-to-v2)
     rules_file="$base_dir/v1-to-v2.warn.txt"
@@ -46,7 +36,6 @@ esac
 
 if [ ! -f "$rules_file" ]; then
   echo "Rules file not found: $rules_file" 1>&2
-  echo "Rules file not found: $rules_file" >> "$log_file"
   exit 1
 fi
 
@@ -63,6 +52,17 @@ config_candidates=(
 )
 
 cd "$project_root"
+
+# Create log directory if it doesn't exist (now that we're in the project root)
+log_dir="./helpers/log"
+mkdir -p "$log_dir"
+log_file="$log_dir/warnings.log"
+
+# Initialize log file with timestamp
+echo "=== Tailwind Warnings Log - $(date) ===" > "$log_file"
+echo "Rules file: $arg" >> "$log_file"
+echo "Project root: $(pwd)" >> "$log_file"
+echo "" >> "$log_file"
 
 # Build file list for src types
 build_src_file_list() {

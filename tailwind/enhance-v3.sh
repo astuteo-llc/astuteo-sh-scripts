@@ -2,6 +2,9 @@
 
 update_background="./vendor/astuteo/astuteo-sh-scripts/tailwind/enhance/v3/background-opacity.sh"
 
+# Get the project root directory (where the script is being run from)
+project_root="$(pwd)"
+
 # Create log directory if it doesn't exist
 log_dir="./helpers/log"
 mkdir -p "$log_dir"
@@ -9,6 +12,7 @@ log_file="$log_dir/enhance.log"
 
 # Initialize log file with timestamp
 echo "=== Tailwind Enhancement Log - $(date) ===" > "$log_file"
+echo "Project root: $project_root" >> "$log_file"
 echo "" >> "$log_file"
 
 # Directories to scan
