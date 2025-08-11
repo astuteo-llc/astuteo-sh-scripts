@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Resolve the real path of this script to handle symlinks from vendor/bin
+SCRIPT="$0"
+while [ -h "$SCRIPT" ]; do
+  DIR="$(cd -P "$(dirname "$SCRIPT")" && pwd)"
+  SCRIPT="$(readlink "$SCRIPT")"
+  [[ "$SCRIPT" != /* ]] && SCRIPT="$DIR/$SCRIPT"
+done
+DIR="$(cd -P "$(dirname "$SCRIPT")" && pwd)"
+PKG_ROOT="$(cd "$DIR/.." && pwd)"
+
+exec "$PKG_ROOT/tailwind/warn.sh" "$@"

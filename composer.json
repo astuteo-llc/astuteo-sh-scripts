@@ -1,10 +1,17 @@
 {
     "name": "astuteo/astuteo-sh-scripts",
-    "type": "metapackage",
-    "autoload": {
-        "psr-4": {
-            "Astuteo\\AstuteoShScripts\\": "src/"
-        }
+    "type": "library",
+    "bin": [
+        "bin/tailwind-warn",
+        "bin/tailwind-upgrade",
+        "bin/tailwind-enhance-v3"
+    ],
+    "scripts": {
+      "changelog": "php vendor/bin/conventional-changelog",
+      "release": "php vendor/bin/conventional-changelog --commit",
+      "release:patch": "php vendor/bin/conventional-changelog --patch --commit",
+      "release:minor": "php vendor/bin/conventional-changelog --minor --commit",
+      "release:major": "php vendor/bin/conventional-changelog --major --commit"
     },
     "authors": [
         {
@@ -13,5 +20,7 @@
         }
     ],
     "minimum-stability": "beta",
-    "require": {}
+    "require-dev": {
+        "marcocesarato/php-conventional-changelog": "^1.17"
+    }
 }

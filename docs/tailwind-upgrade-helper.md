@@ -2,6 +2,33 @@
 
 This bash script will help you to upgrade your Tailwind CSS classes in your project files when moving from one major version to another.
 
+## Composer usage (recommended)
+
+After requiring this package in your project, Composer will expose executables under `vendor/bin`:
+
+- `vendor/bin/tailwind-upgrade` — run class replacement using a mapping file.
+- `vendor/bin/tailwind-warn` — scan for patterns that need manual review.
+- `vendor/bin/tailwind-enhance-v3` — apply v3 enhancement replacements.
+
+Examples:
+
+```bash
+# v1 -> v2
+vendor/bin/tailwind-upgrade vendor/astuteo/astuteo-sh-scripts/tailwind/v1-to-v2.txt
+
+# v2 -> v3
+vendor/bin/tailwind-upgrade vendor/astuteo/astuteo-sh-scripts/tailwind/v2-to-v3.txt
+
+# warn-only scanners
+vendor/bin/tailwind-warn v1-to-v2
+vendor/bin/tailwind-warn v2-to-v3
+
+# or provide a custom warn rules file
+vendor/bin/tailwind-warn /absolute/or/relative/path/to/custom.warn.txt
+```
+
+These scripts operate relative to your project root, scanning `./src` and `./templates` by default and Tailwind config files if present.
+
 ## Running the Upgrade Script
 
 The `upgrade.sh` script requires a single argument: the path to a text file that maps old class names to new ones. The script and the class mapping file are both located in the `vendor/astuteo/astuteo-toolkit/tools/tailwind` directory of your Craft CMS project.
