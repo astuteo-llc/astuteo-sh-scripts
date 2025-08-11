@@ -22,6 +22,16 @@ arg="$1"
 base_dir="$(cd "$(dirname "$0")" && pwd)"
 project_root="$(cd "$base_dir/.." && pwd)"
 
+# Create log directory if it doesn't exist
+log_dir="./helpers/log"
+mkdir -p "$log_dir"
+log_file="$log_dir/warnings.log"
+
+# Initialize log file with timestamp
+echo "=== Tailwind Warnings Log - $(date) ===" > "$log_file"
+echo "Rules file: $arg" >> "$log_file"
+echo "" >> "$log_file"
+
 case "$arg" in
   v1-to-v2)
     rules_file="$base_dir/v1-to-v2.warn.txt"
@@ -36,6 +46,7 @@ esac
 
 if [ ! -f "$rules_file" ]; then
   echo "Rules file not found: $rules_file" 1>&2
+  echo "Rules file not found: $rules_file" >> "$log_file"
   exit 1
 fi
 
@@ -90,6 +101,9 @@ print_header() {
   echo "========================================"
   echo "$1"
   echo "========================================"
+  echo "========================================" >> "$log_file"
+  echo "$1" >> "$log_file"
+  echo "========================================" >> "$log_file"
 }
 
 scan_files() {
@@ -104,10 +118,11 @@ scan_files() {
         if grep -nH -E "$pattern" "$src_file" >/dev/null 2>&1; then
           if [ $any_hit -eq 0 ]; then
             print_header "WARN pattern: $pattern"
+            echo "Hint: $message" >> "$log_file"
             echo "Hint: $message"
           fi
           any_hit=1
-          grep -nH -E "$pattern" "$src_file" | sed 's/^/  /'
+          grep -nH -E "$pattern" "$src_file" | sed 's/^/  /' | tee -a "$log_file"
         fi
       fi
     done < <(build_src_file_list)
@@ -118,10 +133,11 @@ scan_files() {
     if grep -RIn -E "$pattern" ./templates >/dev/null 2>&1; then
       if [ $any_hit -eq 0 ]; then
         print_header "WARN pattern: $pattern"
+        echo "Hint: $message" >> "$log_file"
         echo "Hint: $message"
       fi
       any_hit=1
-      grep -RIn -E "$pattern" ./templates | sed 's/^/  /'
+      grep -RIn -E "$pattern" ./templates | sed 's/^/  /' | tee -a "$log_file"
     fi
   fi
 
@@ -134,16 +150,17 @@ scan_files() {
       if grep -nH -E "$pattern" "$cfg" >/dev/null 2>&1; then
         if [ $any_hit -eq 0 ]; then
           print_header "WARN pattern: $pattern"
+          echo "Hint: $message" >> "$log_file"
           echo "Hint: $message"
         fi
         any_hit=1
-        grep -nH -E "$pattern" "$cfg" | sed 's/^/  /'
+        grep -nH -E "$pattern" "$cfg" | sed 's/^/  /' | tee -a "$log_file"
       fi
     done <<< "$cfg_list"
   fi
 
   if [ $any_hit -eq 1 ]; then
-    echo
+    echo "" | tee -a "$log_file"
   fi
 }
 
@@ -170,3 +187,6 @@ while IFS= read -r line; do
 done < "$rules_file"
 
 echo "Done scanning with: $rules_file"
+echo "Done scanning with: $rules_file" >> "$log_file"
+echo "Warnings scan completed at $(date)" >> "$log_file"
+echo "Log saved to: $log_file"

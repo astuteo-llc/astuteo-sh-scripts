@@ -8,6 +8,16 @@ fi
 
 class_file=$1
 
+# Create log directory if it doesn't exist
+log_dir="./helpers/log"
+mkdir -p "$log_dir"
+log_file="$log_dir/upgrade.log"
+
+# Initialize log file with timestamp
+echo "=== Tailwind Upgrade Log - $(date) ===" > "$log_file"
+echo "Class mapping file: $class_file" >> "$log_file"
+echo "" >> "$log_file"
+
 # List of directories to scan
 dirs="./src ./templates"
 
@@ -20,25 +30,30 @@ do
     new_class=$(echo $line | cut -d ' ' -f 2)
 
     echo "Replacing $old_class with $new_class"
+    echo "Replacing $old_class with $new_class" >> "$log_file"
 
     for dir in $dirs
     do
         if [ -d "$dir" ]
         then
             echo "Processing $dir"
+            echo "Processing $dir" >> "$log_file"
             # Differentiate between ./src and ./templates
             if [ "$dir" == "./src" ]
             then
                 for type in $types
                 do
                     echo "Looking for $type files"
+                    echo "Looking for $type files" >> "$log_file"
                     # Find all files of the specific type in the directory
                     files=$(find $dir -name "*.$type" -print0 | xargs -0 grep -l "$old_class")
                     for file in $files
                     do
                         echo "Updating $file"
+                        echo "Updating $file" >> "$log_file"
                         # Use sed to replace old_class with new_class
                         sed -i '' "s/$old_class/$new_class/g" "$file"
+                        echo "  - Replaced $old_class with $new_class in $file" >> "$log_file"
                     done
                 done
             else
@@ -46,13 +61,19 @@ do
                 for file in $files
                 do
                     echo "Updating $file"
+                    echo "Updating $file" >> "$log_file"
                     # Use sed to replace old_class with new_class
                     sed -i '' "s/$old_class/$new_class/g" "$file"
+                    echo "  - Replaced $old_class with $new_class in $file" >> "$log_file"
                 done
             fi
         else
             echo "$dir doesn't exist"
+            echo "$dir doesn't exist" >> "$log_file"
         fi
     done
 
 done < "$class_file"
+
+echo "Upgrade completed. Log saved to: $log_file"
+echo "Upgrade completed at $(date)" >> "$log_file"
