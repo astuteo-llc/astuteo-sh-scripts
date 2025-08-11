@@ -1,10 +1,13 @@
-clearfix flow-root
-focus:shadow-outline focus:ring
-shadow-xs ring-1 ring-black ring-opacity-5
+font-thin font-extralight
+font-hairline font-thin
 whitespace-no-wrap whitespace-nowrap
 flex-no-wrap flex-nowrap
 col-gap-([0-9]+) gap-x-\1
 row-gap-([0-9]+) gap-y-\1
+clearfix flow-root
+focus:shadow-outline focus:ring
 shadow-outline ring
-rounded rounded-default
-
+shadow-xs ring-1 ring-black ring-opacity-5
+rounded-default rounded
+scrolling-touch 
+scrolling-auto
