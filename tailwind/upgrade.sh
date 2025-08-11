@@ -30,8 +30,19 @@ types="css sass scss pcss"
 
 while read -r line
 do
-    old_class=$(echo $line | cut -d ' ' -f 1)
-    new_class=$(echo $line | cut -d ' ' -f 2)
+    # Skip empty lines or comments (allow leading whitespace before #)
+    if [[ -z "${line//[[:space:]]/}" ]] || [[ "$line" =~ ^[[:space:]]*# ]]; then
+        continue
+    fi
+
+    old_class=$(echo "$line" | awk '{print $1}')
+    new_class=$(echo "$line" | awk '{print $2}')
+
+    # Guard against empty patterns (avoids: sed: first RE may not be empty)
+    if [ -z "$old_class" ] || [ -z "$new_class" ]; then
+        echo "Skipping malformed mapping line: '$line'" >> "$log_file"
+        continue
+    fi
 
     echo "Replacing $old_class with $new_class"
     echo "Replacing $old_class with $new_class" >> "$log_file"
@@ -50,24 +61,36 @@ do
                     echo "Looking for $type files"
                     echo "Looking for $type files" >> "$log_file"
                     # Find all files of the specific type in the directory
-                    files=$(find $dir -name "*.$type" -print0 | xargs -0 grep -l "$old_class")
+                    files=$(find $dir -name "*.$type" -print0 | xargs -0 grep -El "$old_class")
                     for file in $files
                     do
                         echo "Updating $file"
                         echo "Updating $file" >> "$log_file"
                         # Use sed to replace old_class with new_class (supports regex patterns)
-                        sed -i '' "s/$old_class/$new_class/g" "$file"
+                        if [ "$old_class" = "rounded" ]; then
+                            # Only replace standalone "rounded" tokens (not prefixes like "rounded-*")
+                            # Match boundaries where next char is not a letter, number, or dash
+                            sed -E -i '' "s/(^|[^A-Za-z0-9-])rounded([^A-Za-z0-9-]|$)/\\1${new_class}\\2/g" "$file"
+                        else
+                            sed -E -i '' "s/$old_class/$new_class/g" "$file"
+                        fi
                         echo "  - Replaced $old_class with $new_class in $file" >> "$log_file"
                     done
                 done
             else
-                files=$(grep -rl "$old_class" $dir)
+                files=$(grep -rEl "$old_class" $dir)
                 for file in $files
                 do
                     echo "Updating $file"
                     echo "Updating $file" >> "$log_file"
                     # Use sed to replace old_class with new_class (supports regex patterns)
-                    sed -i '' "s/$old_class/$new_class/g" "$file"
+                    if [ "$old_class" = "rounded" ]; then
+                        # Only replace standalone "rounded" tokens (not prefixes like "rounded-*")
+                        # Match boundaries where next char is not a letter, number, or dash
+                        sed -E -i '' "s/(^|[^A-Za-z0-9-])rounded([^A-Za-z0-9-]|$)/\\1${new_class}\\2/g" "$file"
+                    else
+                        sed -E -i '' "s/$old_class/$new_class/g" "$file"
+                    fi
                     echo "  - Replaced $old_class with $new_class in $file" >> "$log_file"
                 done
             fi
